@@ -6,6 +6,9 @@ from models.user import db
 from models.candidate import Candidate, CandidateMatch
 from services.resume_parser import ResumeParser
 from services.ai_service import AIService
+from models.interview import Interview
+from models.evaluation import Evaluation
+
 
 candidate_bp = Blueprint('candidate_bp', __name__)
 
@@ -60,12 +63,29 @@ def upload_resume(job_id):
                 
     return render_template('candidate_upload.html', job_id=job_id)
 
-@candidate_bp.route('/detail/<int:candidate_id>')
+
+@candidate_bp.route('/candidate/detail/<int:candidate_id>')
 def candidate_detail(candidate_id):
     if 'user_id' not in session:
         return redirect(url_for('auth_bp.login'))
-        
+
     candidate = Candidate.query.get_or_404(candidate_id)
-    extracted_data = json.loads(candidate.extracted_data) if candidate.extracted_data else {}
-    
-    return render_template('candidate_detail.html', candidate=candidate, extracted_data=extracted_data)
+
+    # 1. Safely parse JSON extracted data from database
+    extracted_data = {}
+    if candidate.extracted_data:
+        try:
+            extracted_data = json.loads(candidate.extracted_data)
+        except Exception:
+            extracted_data = {}
+
+    # 2. Fetch interview notes and AI evaluation results
+    interview = Interview.query.filter_by(candidate_id=candidate.id).first()
+    evaluation = Evaluation.query.filter_by(interview_id=interview.id).first() if interview else None
+
+    return render_template(
+        'candidate_detail.html', 
+        candidate=candidate, 
+        extracted_data=extracted_data, 
+        evaluation=evaluation
+    )

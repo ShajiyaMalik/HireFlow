@@ -6,3 +6,4 @@ PyMuPDF
 python-docx
 requests
 gunicorn
+google-genai
