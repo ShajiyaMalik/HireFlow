@@ -1,0 +1,8 @@
+Flask
+python-dotenv
+PyMySQL
+SQLAlchemy
+PyMuPDF
+python-docx
+requests
+gunicorn

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}Candidate Detail — HireFlow{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <div class="bg-white p-6 rounded-lg shadow border border-gray-200 flex justify-between items-center">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-900">{{ candidate.name }}</h1>
+            <p class="text-sm text-gray-600">Email: {{ candidate.email }} | Uploaded on: {{ candidate.created_at.strftime('%Y-%m-%d') }}</p>
+        </div>
+        <a href="{{ url_for('interview_bp.interview_session', candidate_id=candidate.id) }}" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 font-medium transition">
+            Start Interview Session
+        </a>
+    </div>
+
+    <!-- Extracted Profile Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white p-6 rounded-lg shadow border border-gray-200">
+            <h2 class="text-lg font-semibold text-gray-800 mb-4">Parsed Candidate Profile</h2>
+            <div class="space-y-3 text-sm text-gray-700">
+                <p><strong>Skills:</strong> {{ extracted_data.get('skills', []) | join(', ') }}</p>
+                <p><strong>Experience:</strong> {{ extracted_data.get('experience', 'Not specified') }}</p>
+                <p><strong>Education:</strong> {{ extracted_data.get('education', 'Not specified') }}</p>
+                <p><strong>Projects:</strong> {{ extracted_data.get('projects', []) | join(', ') }}</p>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow border border-gray-200">
+            <h2 class="text-lg font-semibold text-gray-800 mb-4">AI Requirement Matching</h2>
+            <div id="ai-match-container" class="text-sm text-gray-600">
+                <button onclick="fetchAIMatch({{ candidate.id }})" class="bg-indigo-50 text-indigo-700 px-4 py-2 rounded-lg hover:bg-indigo-100 font-medium transition">
+                    Run AI Requirement Match & Gaps
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+async function fetchAIMatch(candidateId) {
+    const container = document.getElementById('ai-match-container');
+    container.innerHTML = `
+        <div class="flex items-center space-x-3 text-indigo-600 py-4">
+            <svg class="animate-spin h-6 w-6 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+            </svg>
+            <span class="font-medium animate-pulse">Running AI candidate analysis and gap detection...</span>
+        </div>
+    `;
+    
+    try {
+        const response = await fetch(`/ai/match/${candidateId}`);
+        const data = await response.json();
+        
+        if (data.success) {
+            let html = '<div class="space-y-3">';
+            html += `<p><strong>Matching Skills:</strong> ${data.match_data.matches.join(', ')}</p>`;
+            html += `<p><strong>Missing Areas:</strong> ${data.match_data.missing.join(', ')}</p>`;
+            html += `<div class="mt-4 border-t pt-3"><p class="font-semibold text-gray-800">Generated Interview Questions:</p><ul class="list-disc pl-5 mt-1 space-y-1">`;
+            data.questions.forEach(q => { html += `<li>${q}</li>`; });
+            html += '</ul></div></div>';
+            container.innerHTML = html;
+        } else {
+            container.innerHTML = '<p class="text-red-600">Failed to load AI insights.</p>';
+        }
+    } catch (err) {
+        container.innerHTML = '<p class="text-red-600">Error connecting to AI service.</p>';
+    }
+}
+</script>
+{% endblock %}
