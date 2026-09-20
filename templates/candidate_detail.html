@@ -41,8 +41,24 @@
         {% if evaluation %}
             <div class="space-y-3">
                 <div class="flex items-center space-x-3">
-                    <span class="font-bold text-gray-700">Suitability Score:</span>
-                    <span class="px-3 py-1 bg-indigo-100 text-indigo-800 font-bold rounded-full">{{ evaluation.score }}/100</span>
+                    <span class="font-bold text-gray-700">Suitability Verdict:</span>
+                    
+                    {% set score = evaluation.score if evaluation.score is defined else 0 %}
+                    {% if score >= 75 %}
+                        <span class="px-3 py-1 bg-emerald-100 text-emerald-800 font-bold rounded-full text-xs flex items-center space-x-1 border border-emerald-200">
+                            Strong
+                        </span>
+                    {% elif score >= 50 %}
+                        <span class="px-3 py-1 bg-amber-100 text-amber-800 font-bold rounded-full text-xs flex items-center space-x-1 border border-amber-200">
+                            Average
+                        </span>
+                    {% else %}
+                        <span class="px-3 py-1 bg-rose-100 text-rose-800 font-bold rounded-full text-xs flex items-center space-x-1 border border-rose-200">
+                            Reject
+                        </span>
+                    {% endif %}
+                    
+                    <span class="text-xs text-gray-400">({{ score }}/100)</span>
                 </div>
                 <div>
                     <strong class="text-gray-700">AI Feedback & Recommendation:</strong>
