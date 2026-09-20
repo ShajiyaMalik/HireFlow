@@ -1,87 +1,90 @@
 {% extends "base.html" %}
-{% block title %}HireFlow — AI Recruitment Intelligence Agent{% endblock %}
+{% block title %}HireFlow — AI Recruitment Intelligence & Career Platform{% endblock %}
 
 {% block content %}
-<div class="py-10 space-y-16 max-w-5xl mx-auto">
+<div class="py-10 space-y-16 max-w-5xl mx-auto px-4 sm:px-6">
     
     <!-- Hero Section -->
     <div class="text-center space-y-6">
         <div class="inline-flex items-center space-x-2 bg-indigo-50 border border-indigo-200 text-indigo-800 text-xs font-semibold px-4 py-1.5 rounded-full uppercase tracking-wide shadow-sm">
             <span class="w-2 h-2 rounded-full bg-indigo-600 animate-pulse"></span>
-            <span>Next-Gen Autonomous AI Recruitment Platform</span>
+            <span>Next-Gen Autonomous AI Recruitment & Career Platform</span>
         </div>
         <h1 class="text-4xl sm:text-6xl font-extrabold text-gray-900 tracking-tight leading-tight">
             Organize Candidates. Validate Evidence. <br class="hidden sm:inline">
             <span class="text-indigo-600">Ask Better Questions.</span>
         </h1>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            HireFlow helps recruiters cut down repetitive screening time by 80%, instantly match candidate profiles against job requirements, and generate role-specific interview intelligence.
+        <p class="text-lg text-gray-700 max-w-2xl mx-auto leading-relaxed">
+            HireFlow helps recruiters cut down repetitive screening time by 80%, and empowers students to instantly analyze resumes and match skill gaps for target roles.
         </p>
         
         <div class="flex flex-col sm:flex-row justify-center items-center gap-4 pt-2">
             {% if session.get('user_id') %}
-                <a href="{{ url_for('recruiter_bp.dashboard') }}" class="w-full sm:w-auto bg-indigo-600 text-white px-8 py-3.5 rounded-xl font-medium hover:bg-indigo-700 shadow-xl shadow-indigo-600/20 transition flex items-center justify-center space-x-2">
+                <a href="{{ url_for('recruiter_bp.dashboard') }}" class="w-full sm:w-auto bg-indigo-600 text-white px-8 py-3.5 rounded-xl font-semibold hover:bg-indigo-700 shadow-xl shadow-indigo-600/20 transition flex items-center justify-center space-x-2">
                     <span>Go to Recruiter Dashboard</span>
-                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                    <span>&rarr;</span>
                 </a>
             {% else %}
-                <a href="{{ url_for('auth_bp.register') }}" class="w-full sm:w-auto bg-indigo-600 text-white px-8 py-3.5 rounded-xl font-medium hover:bg-indigo-700 shadow-xl shadow-indigo-600/20 transition flex items-center justify-center space-x-2">
-                    <i class="fa-solid fa-user-plus text-xs"></i>
-                    <span>Get Started </span>
+                <a href="{{ url_for('auth_bp.register') }}" class="w-full sm:w-auto bg-indigo-600 text-white px-8 py-3.5 rounded-xl font-semibold hover:bg-indigo-700 shadow-xl shadow-indigo-600/20 transition flex items-center justify-center space-x-2">
+                    <span>✨ Get Started</span>
                 </a>
-                <a href="{{ url_for('auth_bp.login') }}" class="w-full sm:w-auto bg-white text-gray-700 border border-gray-300 px-8 py-3.5 rounded-xl font-medium hover:bg-gray-50 transition flex items-center justify-center space-x-2">
-                    <i class="fa-solid fa-right-to-bracket text-xs"></i>
-                    <span>Recruiter Sign In</span>
+                <a href="{{ url_for('auth_bp.login') }}" class="w-full sm:w-auto bg-slate-50 text-gray-800 border border-gray-300 px-8 py-3.5 rounded-xl font-semibold hover:bg-slate-100 transition flex items-center justify-center space-x-2 shadow-sm">
+                    <span>🔐 Recruiter Sign In</span>
                 </a>
             {% endif %}
+
+            <!-- Student Resume Analyzer Quick Link -->
+            <a href="{{ url_for('student_bp.resume_analyzer') }}" class="w-full sm:w-auto bg-emerald-600 text-white px-8 py-3.5 rounded-xl font-semibold hover:bg-emerald-700 shadow-xl shadow-emerald-600/20 transition flex items-center justify-center space-x-2">
+                <span>📄 Student Resume Analyzer</span>
+            </a>
         </div>
 
-        <!-- Quick Trust Metrics / Hackathon Stats -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 max-w-3xl mx-auto border-t border-gray-200 mt-8">
-            <div class="text-center">
+        <!-- Quick Trust Metrics -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 max-w-3xl mx-auto border-t border-gray-200/80 mt-8">
+            <div class="text-center p-3 rounded-xl bg-slate-50/50 border border-slate-200/60">
                 <div class="text-2xl font-extrabold text-indigo-600">80%</div>
-                <div class="text-xs text-gray-500 mt-0.5">Time Saved on Screening</div>
+                <div class="text-xs font-medium text-gray-600 mt-0.5">Time Saved on Screening</div>
             </div>
-            <div class="text-center">
+            <div class="text-center p-3 rounded-xl bg-slate-50/50 border border-slate-200/60">
                 <div class="text-2xl font-extrabold text-indigo-600">100%</div>
-                <div class="text-xs text-gray-500 mt-0.5">Secure OTP & Bcrypt Auth</div>
+                <div class="text-xs font-medium text-gray-600 mt-0.5">Secure OTP & Bcrypt Auth</div>
             </div>
-            <div class="text-center">
-                <div class="text-2xl font-extrabold text-indigo-600">PDF / DOC</div>
-                <div class="text-xs text-gray-500 mt-0.5">Instant Resume Parsing</div>
+            <div class="text-center p-3 rounded-xl bg-slate-50/50 border border-slate-200/60">
+                <div class="text-2xl font-extrabold text-indigo-600">PDF / DOCX</div>
+                <div class="text-xs font-medium text-gray-600 mt-0.5">Instant Resume Parsing</div>
             </div>
-            <div class="text-center">
+            <div class="text-center p-3 rounded-xl bg-slate-50/50 border border-slate-200/60">
                 <div class="text-2xl font-extrabold text-indigo-600">Real-time</div>
-                <div class="text-xs text-gray-500 mt-0.5">AI Gap & Match Analysis</div>
+                <div class="text-xs font-medium text-gray-600 mt-0.5">AI Gap & Match Analysis</div>
             </div>
         </div>
     </div>
 
-    <!-- Workflow Section (How HireFlow Works) -->
-    <div class="space-y-8 bg-gradient-to-br from-gray-50 to-indigo-50/30 p-8 sm:p-10 rounded-3xl border border-gray-200 shadow-sm">
+    <!-- Workflow Section -->
+    <div class="space-y-8 bg-slate-50/80 p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-sm">
         <div class="text-center max-w-xl mx-auto">
             <span class="text-indigo-600 text-xs font-bold uppercase tracking-wider">End-to-End Pipeline</span>
             <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mt-1">How HireFlow Works</h2>
-            <p class="text-sm text-gray-600 mt-2">Designed for high-velocity hiring teams to evaluate candidates effortlessly.</p>
+            <p class="text-sm text-gray-600 mt-2">Designed for high-velocity hiring teams and job seekers to evaluate skills effortlessly.</p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 hover:shadow-md transition">
+            <div class="bg-white/90 p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
                 <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-base mb-4 border border-indigo-100">1</div>
                 <h3 class="font-bold text-gray-900 text-sm mb-1.5">Add Jobs & Requirements</h3>
                 <p class="text-xs text-gray-600 leading-relaxed">Recruiters define job titles, tech stacks, and role descriptions as a benchmark.</p>
             </div>
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 hover:shadow-md transition">
+            <div class="bg-white/90 p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
                 <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-base mb-4 border border-indigo-100">2</div>
                 <h3 class="font-bold text-gray-900 text-sm mb-1.5">Upload Resumes</h3>
                 <p class="text-xs text-gray-600 leading-relaxed">Upload candidate resumes in PDF or Word formats for automated data extraction.</p>
             </div>
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 hover:shadow-md transition">
+            <div class="bg-white/90 p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
                 <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-base mb-4 border border-indigo-100">3</div>
                 <h3 class="font-bold text-gray-900 text-sm mb-1.5">AI Gap & Match Analysis</h3>
                 <p class="text-xs text-gray-600 leading-relaxed">The system automatically evaluates matching skills, missing gaps, and overall fit.</p>
             </div>
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 hover:shadow-md transition">
+            <div class="bg-white/90 p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
                 <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-base mb-4 border border-indigo-100">4</div>
                 <h3 class="font-bold text-gray-900 text-sm mb-1.5">Interview Intelligence</h3>
                 <p class="text-xs text-gray-600 leading-relaxed">Generate targeted questions, analyze recruiter notes, and finalize verdicts.</p>
@@ -93,47 +96,50 @@
     <div class="space-y-6">
         <div class="text-center max-w-xl mx-auto">
             <h2 class="text-2xl font-bold text-gray-900">Platform Capabilities</h2>
-            <p class="text-sm text-gray-600 mt-1">Built with robust backend security and intuitive recruiter workflows.</p>
+            <p class="text-sm text-gray-600 mt-1">Built with robust backend security and intuitive user workflows.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 space-y-3">
-                <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-lg">
-                    <i class="fa-solid fa-shield-halved"></i>
+            <div class="bg-slate-50/70 p-6 rounded-2xl shadow-sm border border-slate-200 space-y-3">
+                <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl">
+                    🛡️
                 </div>
                 <h3 class="font-bold text-gray-900 text-base">Secure OTP & Bcrypt Auth</h3>
                 <p class="text-sm text-gray-600 leading-relaxed">Multi-step user registration with verified email activation via custom EmailService and secure password hashing.</p>
             </div>
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 space-y-3">
-                <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-lg">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <div class="bg-slate-50/70 p-6 rounded-2xl shadow-sm border border-slate-200 space-y-3">
+                <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl">
+                    ⚡
                 </div>
                 <h3 class="font-bold text-gray-900 text-base">Automated Skill Gap Engine</h3>
-                <p class="text-sm text-gray-600 leading-relaxed">Instantly parses resumes to map candidate expertise against complex job requirements with zero manual lag.</p>
+                <p class="text-sm text-gray-600 leading-relaxed">Instantly parses PDF/DOCX resumes to map expertise against job requirements with zero manual lag.</p>
             </div>
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 space-y-3">
-                <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-lg">
-                    <i class="fa-solid fa-arrows-left-right"></i>
+            <div class="bg-slate-50/70 p-6 rounded-2xl shadow-sm border border-slate-200 space-y-3">
+                <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl">
+                    🎓
                 </div>
-                <h3 class="font-bold text-gray-900 text-base">Rapid Pipeline Navigation</h3>
-                <p class="text-sm text-gray-600 leading-relaxed">Smooth Next and Previous candidate switching directly inside detail views for ultimate recruiter productivity.</p>
+                <h3 class="font-bold text-gray-900 text-base">Student Career Coach</h3>
+                <p class="text-sm text-gray-600 leading-relaxed">Dedicated portal for job seekers to evaluate target roles, find missing skill gaps, and get AI tips.</p>
             </div>
         </div>
     </div>
 
-    <!-- Tech Stack Badge Showcase (Great for Hackathon Judges) -->
-    <div class="bg-gray-900 text-white p-8 rounded-3xl shadow-lg flex flex-col sm:flex-row items-center justify-between gap-6">
-        <div class="space-y-2 text-center sm:text-left">
+    <!-- Tech Stack Badge Showcase -->
+    <div class="bg-gray-900 text-white p-8 rounded-3xl shadow-lg flex flex-col lg:flex-row items-center justify-between gap-6">
+        <div class="space-y-2 text-center lg:text-left">
             <span class="text-indigo-400 text-xs font-bold uppercase tracking-wider">Engineering Excellence</span>
             <h3 class="text-xl font-bold">Powered by Modern Tech Stack</h3>
-            <p class="text-xs text-slate-400 max-w-md">Engineered using Python Flask, SQLAlchemy ORM, Tailwind CSS, and robust backend utilities.</p>
+            <p class="text-xs text-slate-300 max-w-lg leading-relaxed">
+                Engineered using Python Flask, TiDB Cloud DBMS, SQLAlchemy ORM, SMTP / Firebase services, PyPDF, python-docx, and Tailwind CSS.
+            </p>
         </div>
-        <div class="flex flex-wrap gap-2 justify-center">
-            <span class="bg-slate-800 text-indigo-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-700">Flask</span>
+        <div class="flex flex-wrap gap-2 justify-center max-w-md">
+            <span class="bg-slate-800 text-indigo-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-700">Python Flask</span>
+            <span class="bg-slate-800 text-indigo-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-700">TiDB Cloud</span>
             <span class="bg-slate-800 text-indigo-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-700">SQLAlchemy</span>
+            <span class="bg-slate-800 text-indigo-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-700">SMTP / Firebase</span>
+            <span class="bg-slate-800 text-indigo-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-700">PyPDF / Docx</span>
             <span class="bg-slate-800 text-indigo-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-700">Tailwind CSS</span>
-            <span class="bg-slate-800 text-indigo-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-700">Bcrypt</span>
-            <span class="bg-slate-800 text-indigo-300 text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-700">SMTP/EmailService</span>
         </div>
     </div>
 

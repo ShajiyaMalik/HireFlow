@@ -28,6 +28,13 @@ def create_app():
     from routes.candidate import candidate_bp
     from routes.interview import interview_bp
     from routes.ai import ai_bp
+    # Student Blueprint ko import karein
+    from routes.student_routes import student_bp
+    
+    # Yahan blueprint register karein
+    app.register_blueprint(student_bp)
+    
+    
     
     app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(recruiter_bp, url_prefix='/recruiter')
