@@ -28,7 +28,7 @@ class AIService:
             """
             
             response = client.models.generate_content(
-                model='gemini-3.6-flash',
+                model='gemini-3.7-flash',
                 contents=prompt,
                 config=types.GenerateContentConfig(
                     response_mime_type="application/json"
@@ -62,7 +62,7 @@ class AIService:
             - validation_areas (list of things to verify during interview)
             """
             response = client.models.generate_content(
-                model='gemini-3.6-flash',
+                model='gemini-3.7-flash',
                 contents=prompt,
                 config=types.GenerateContentConfig(
                     response_mime_type="application/json"
@@ -87,7 +87,7 @@ class AIService:
             Return the output as a JSON array of strings (just the questions).
             """
             response = client.models.generate_content(
-                model='gemini-2.5-flash',
+                model='gemini-3.7-flash',
                 contents=prompt,
                 config=types.GenerateContentConfig(
                     response_mime_type="application/json"
